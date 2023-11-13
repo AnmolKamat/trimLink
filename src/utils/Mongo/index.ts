@@ -1,7 +1,6 @@
 import mongoose from "mongoose";
 
 const uri = process.env.MONGO_URI;
-export const clg = () => console.log(uri);
 mongoose.connect(uri!);
 
 const linkSchema = new mongoose.Schema({
