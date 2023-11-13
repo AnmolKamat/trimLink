@@ -1,4 +1,4 @@
-import { linksModel } from "@/utils/Mongo";
+import { clg, linksModel } from "@/utils/Mongo";
 import { NextRequest, NextResponse } from "next/server";
 
 export const POST = async (req: NextRequest) => {

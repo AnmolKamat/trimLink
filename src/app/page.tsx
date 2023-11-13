@@ -49,7 +49,7 @@ const Home = (props: Props) => {
       ></video>
       <div className="absolute w-full h-full bg-black/5 top-0">
         <div className="w-1/3 mx-auto mt-32 bg-black/40 backdrop-blur-lg p-8 rounded-md">
-          <h1 className="mb-20 mx-auto w-fit font-thin text-4xl">TrimLink</h1>
+          <h1 className="mb-20 mx-auto w-fit font-thin text-4xl">TrimLinc</h1>
           <div className="flex w-full flex-col justify-center gap-8 items-center">
             <div className="relative  w-[98%] xl:w-3/4 mb-4">
               <label htmlFor="" className="absolute -top-8 left-2">

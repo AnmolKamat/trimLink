@@ -1,8 +1,10 @@
-import { linksModel } from "@/utils/Mongo";
+import { clg, linksModel } from "@/utils/Mongo";
 import { NextRequest, NextResponse } from "next/server";
 
 export const POST = async (req: NextRequest) => {
   const { text } = await req.json();
+  clg();
+
   try {
     const textResult = await linksModel.findOne({ text });
     if (textResult) {
