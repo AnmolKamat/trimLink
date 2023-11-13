@@ -5,6 +5,7 @@ export const POST = async (req: NextRequest) => {
   const { text } = await req.json();
 
   try {
+    console.log(await linksModel.find());
     const textResult = await linksModel.findOne({ text });
     if (textResult) {
       return NextResponse.json(
