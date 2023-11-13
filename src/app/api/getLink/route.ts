@@ -3,11 +3,9 @@ import { NextRequest, NextResponse } from "next/server";
 
 export const POST = async (req: NextRequest) => {
   const { text } = await req.json();
-  console.log("adding", 1);
 
   try {
     const textResult = await linksModel.findOne({ text });
-    console.log("adding2", textResult);
     if (textResult) {
       return NextResponse.json(
         { message: "Link Found", link: textResult.link },

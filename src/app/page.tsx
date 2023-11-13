@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import cryptoRandomString from "crypto-random-string";
 import { DicesIcon } from "lucide-react";
+import { ClipLoader } from "react-spinners";
 
 type Props = {};
 
@@ -9,7 +10,9 @@ const Home = (props: Props) => {
   const [link, setLink] = useState("");
   const [text, setText] = useState("");
   const [alert, setAlert] = useState({ message: "", type: "" });
+  const [loading, setloading] = useState(false);
   const createLink = async () => {
+    setloading(true);
     const response = await fetch("/api/addLink", {
       headers: {
         "Content-Type": "application/json",
@@ -20,11 +23,13 @@ const Home = (props: Props) => {
 
     if (response.ok) {
       setAlert({ message: "Successfull, Link copied", type: "success" });
-      const newLink = `http://localhost:3000/${text}`;
+      const newLink = `https://trimlinc.vercel.app/${text}`;
       navigator.clipboard.writeText(newLink);
+      setloading(false);
     } else {
       const { message } = await response.json();
       setAlert({ message, type: "error" });
+      setloading(false);
     }
   };
   const generateRandom = () => {
@@ -85,8 +90,19 @@ const Home = (props: Props) => {
             <button
               className=" w-[98%] xl:w-3/4 bg-stone-300 text-black py-2 rounded-md hover:bg-white font-light text-lg"
               onClick={createLink}
+              disabled={loading}
             >
-              Continue
+              {loading ? (
+                <ClipLoader
+                  color="black"
+                  loading={loading}
+                  size={10}
+                  aria-label="Loading Spinner"
+                  data-testid="loader"
+                />
+              ) : (
+                "Continue"
+              )}
             </button>
           </div>
           {alert.message && (

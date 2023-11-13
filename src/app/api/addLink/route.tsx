@@ -3,11 +3,9 @@ import { NextRequest, NextResponse } from "next/server";
 
 export const POST = async (req: NextRequest) => {
   const { link, text } = await req.json();
-  console.log("getting1");
   try {
-    const textResult = await linksModel.find({ link });
-    const linkResult = await linksModel.find({ text });
-    console.log("getting2", { textResult, linkResult });
+    const textResult = await linksModel.find({ text });
+    const linkResult = await linksModel.find({ link });
     if (textResult.length > 0) {
       return NextResponse.json(
         { message: "Text already Exists" },
@@ -22,7 +20,6 @@ export const POST = async (req: NextRequest) => {
     }
     const newDoc = new linksModel({ link, text });
     newDoc.save();
-    console.log("getting3", newDoc);
     return NextResponse.json(
       {
         message: "Added Link",
