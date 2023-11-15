@@ -2,7 +2,6 @@
 # TrimLinc
 
 This is a application used to shorten links.
-Instaed of Memorizing whole url you can just remember a key.
 
 
 
