@@ -19,6 +19,7 @@ const Redirecting = ({ params }: { params: { id: string } }) => {
       });
       if (response.ok) {
         const { link } = await response.json();
+        window.location.href= "";
         window.location.href = link;
       } else {
         const { message } = await response.json();
