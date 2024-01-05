@@ -12,12 +12,6 @@ export const POST = async (req: NextRequest) => {
         { status: 401 }
       );
     }
-    if (linkResult.length > 0) {
-      return NextResponse.json(
-        { message: "Link already Exists" },
-        { status: 401 }
-      );
-    }
     const newDoc = new linksModel({ link, text });
     newDoc.save();
     return NextResponse.json(
