@@ -3,6 +3,7 @@ import { Home } from "lucide-react";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import ClipLoader from "react-spinners/ClipLoader";
+// import { redirect } from "next/navigation";
 
 const Redirecting = ({ params }: { params: { id: string } }) => {
   const [loading, setLoading] = useState(true);
@@ -19,8 +20,7 @@ const Redirecting = ({ params }: { params: { id: string } }) => {
       });
       if (response.ok) {
         const { link } = await response.json();
-        window.location.href = "";
-        // window.location.href = link;
+        window.location.assign(link);
       } else {
         const { message } = await response.json();
         setLoading(false);

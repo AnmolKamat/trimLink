@@ -5,13 +5,13 @@ export const POST = async (req: NextRequest) => {
   const { link, text } = await req.json();
   try {
     const textResult = await linksModel.find({ text });
-    const linkResult = await linksModel.find({ link });
     if (textResult.length > 0) {
       return NextResponse.json(
         { message: "Text already Exists" },
         { status: 401 }
       );
     }
+
     const newDoc = new linksModel({ link, text });
     newDoc.save();
     return NextResponse.json(

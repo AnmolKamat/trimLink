@@ -6,12 +6,36 @@ import { ClipLoader } from "react-spinners";
 
 type Props = {};
 
+function isValidURL(url: string) {
+  try {
+    new URL(url);
+    return true;
+  } catch (error) {
+    return false;
+  }
+}
 const Home = (props: Props) => {
   const [link, setLink] = useState("");
   const [text, setText] = useState("");
   const [alert, setAlert] = useState({ message: "", type: "" });
   const [loading, setloading] = useState(false);
   const createLink = async () => {
+    if (link.length === 0 && text.length === 0) {
+      setAlert({ message: "Fill all Fields", type: "error" });
+      return;
+    }
+    if (link.length === 0) {
+      setAlert({ message: "Enter a Link", type: "error" });
+      return;
+    }
+    if (text.length === 0) {
+      setAlert({ message: "Text cannot be empty", type: "error" });
+      return;
+    }
+    if (!isValidURL(link)) {
+      setAlert({ message: "Invalid URL", type: "error" });
+      return;
+    }
     setloading(true);
     const response = await fetch("/api/addLink", {
       headers: {
@@ -23,7 +47,7 @@ const Home = (props: Props) => {
 
     if (response.ok) {
       setAlert({ message: "Successfull, Link copied", type: "success" });
-      const newLink = `https://trimlinc.vercel.app/${text}`;
+      const newLink = `${process.env.NEXT_PUBLIC_ROOT_URL}${text}`;
       navigator.clipboard.writeText(newLink);
       setloading(false);
     } else {
@@ -61,11 +85,13 @@ const Home = (props: Props) => {
                 Link
               </label>
               <input
-                type="text"
+                type="url"
                 className="w-full py-3 px-2 bg-black/20 backdrop-blur-sm rounded-md  placeholder:text-gray-400 text-white !outline-none"
                 placeholder="Enter the Link"
                 onChange={(e) => setLink(e.target.value)}
                 value={link}
+                pattern="https://.*"
+                required
               />
             </div>
             <div className=" w-[98%] xl:w-3/4 grid grid-cols-10 relative">
@@ -82,6 +108,7 @@ const Home = (props: Props) => {
               <button
                 className=" col-span-3 py-3 bg-black/20 backdrop-blur-md rounded-r-md border-l border-zinc-700 flex justify-center gap-2 items-center"
                 onClick={generateRandom}
+                type="submit"
               >
                 <p className="hidden xl:block font-light text-sm">Random</p>{" "}
                 <DicesIcon strokeWidth={1} size={20} />

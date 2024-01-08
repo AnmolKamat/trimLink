@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const uri = process.env.MONGO_URI;
+const uri = process.env.NEXT_PUBLIC_MONGO_URI;
 mongoose.connect(uri!);
 
 const linkSchema = new mongoose.Schema({
